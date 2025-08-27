@@ -5,13 +5,18 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Internet in Egypt — Today</title>
 
+  <!-- Favicon & fonts -->
   <link rel="icon" type="image/png" href="assets/img/egypt.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
+  <!-- Libraries -->
   <script defer src="js/libs/nunjucks.min.js"></script>
-  <script defer src="js/validate.js"></script>
-  <script type="module" defer src="js/main.js"></script>
+
+  <!-- App -->
+  <script type="module" src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="today">
   <header class="navbar">
@@ -21,7 +26,6 @@
       <a href="growth.html">Growth</a>
       <a href="today.html" aria-current="page">Today</a>
       <div class="nav-ticker" aria-live="polite"></div>
-      <span class="nav-underline" aria-hidden="true"></span>
     </nav>
   </header>
 
@@ -48,9 +52,10 @@
       <section>
         <h2>Access &amp; adoption</h2>
         <p>
-          Internet access keeps expanding across cities and many rural districts. While cafés and shared points
-          once introduced millions to the web, most people now connect via their smartphones. Household connections
-          are rising as fiber replaces aging copper in more neighborhoods.
+          Internet access keeps expanding across cities and many rural districts. While cafés and
+          shared points once introduced millions to the web, most people now connect via their
+          smartphones. Household connections are rising as fiber replaces aging copper in more
+          neighborhoods.
         </p>
       </section>
 
@@ -58,16 +63,17 @@
         <h2>How people connect</h2>
         <p>
           Mobile data remains the everyday workhorse for messaging, social media, payments, and video.
-          Fixed connections—ADSL where available, and increasingly fiber—anchor homes, offices, and cafés.
+          Fixed connections—ADSL where available, and increasingly fiber—anchor homes, offices, and
+          cafés. Bundled offers and e-payment adoption continue to make sign-ups smoother.
         </p>
       </section>
 
       <section>
         <h2>Speeds, pricing, and experience</h2>
         <p>
-          Typical plans target affordability first, with mid-tier speeds attracting most sign-ups. Evening hours
-          can bring congestion on mobile networks, while fiber roll-outs improve consistency for home streaming,
-          gaming, and remote work.
+          Typical advertised plans target affordability first, with mid-tier speed options attracting
+          most sign-ups. Evening hours still bring congestion on mobile networks, while fiber roll-outs
+          improve consistency for home streaming, gaming, and remote work.
         </p>
       </section>
 
@@ -90,8 +96,8 @@
       </section>
 
       <footer class="article-foot note">
-        These figures align with the demo numbers used across this project. Replace them with your latest validated
-        metrics any time—no layout changes needed.
+        These figures align with the demo numbers used across this project. Replace them with your
+        latest validated metrics any time—no layout changes needed.
       </footer>
     </article>
 
@@ -99,22 +105,46 @@
       <h2 id="sources-title">Sources</h2>
       <p class="note">Update this list with the exact reports and years you used.</p>
       <ul class="sources-list">
-        <li><a href="https://mcit.gov.eg" target="_blank" rel="noopener">MCIT Egypt</a> — announcements and sector indicators.</li>
-        <li><a href="https://www.itu.int/en/ITU-D/Statistics/Pages/stat/default.aspx" target="_blank" rel="noopener">ITU Statistics</a> — global ICT indicators and country profiles.</li>
-        <li><a href="https://data.worldbank.org/indicator" target="_blank" rel="noopener">World Bank Data</a> — population, households, and penetration metrics.</li>
-        <li><a href="https://www.speedtest.net/global-index" target="_blank" rel="noopener">Ookla Global Index</a> — comparative mobile &amp; fixed speed measurements.</li>
-        <li><a href="https://www.gsmaintelligence.com/" target="_blank" rel="noopener">GSMA Intelligence</a> — mobile market data and coverage trends.</li>
-        <li><a href="https://www.capmas.gov.eg/" target="_blank" rel="noopener">CAPMAS</a> — demographic context and household stats.</li>
+        <li>
+          <a href="https://mcit.gov.eg" target="_blank" rel="noopener">MCIT Egypt</a>
+          — announcements and sector indicators.
+        </li>
+        <li>
+          <a href="https://www.itu.int/en/ITU-D/Statistics/Pages/stat/default.aspx" target="_blank" rel="noopener">ITU Statistics</a>
+          — global ICT indicators and country profiles.
+        </li>
+        <li>
+          <a href="https://data.worldbank.org/indicator" target="_blank" rel="noopener">World Bank Data</a>
+          — population, households, and penetration metrics.
+        </li>
+        <li>
+          <a href="https://www.speedtest.net/global-index" target="_blank" rel="noopener">Ookla Global Index</a>
+          — comparative mobile &amp; fixed speed measurements.
+        </li>
+        <li>
+          <a href="https://www.gsmaintelligence.com/" target="_blank" rel="noopener">GSMA Intelligence</a>
+          — mobile market data and coverage trends.
+        </li>
+        <li>
+          <a href="https://www.capmas.gov.eg/" target="_blank" rel="noopener">CAPMAS</a>
+          — demographic context and household stats.
+        </li>
       </ul>
     </section>
   </main>
 
   <footer class="flag" aria-label="Egypt flag stripes">
-    <div class="stripe red"></div><div class="stripe white"></div><div class="stripe black"></div>
+    <div class="stripe red"></div>
+    <div class="stripe white"></div>
+    <div class="stripe black"></div>
   </footer>
 
+  <!-- Validator -->
+  <script src="js/validate.js"></script>
   <script>
-    if (location.search.includes('validate=1') && window.validator) { window.validator.runAll(); }
+    if (location.search.includes('validate=1') && window.validator) {
+      window.validator.runAll();
+    }
   </script>
 </body>
 </html>
