@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,25 +5,18 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Internet in Egypt — Home</title>
 
-  <!-- Favicon & fonts -->
   <link rel="icon" type="image/png" href="assets/img/egypt.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
-  <!-- Libraries -->
   <script defer src="js/libs/nunjucks.min.js"></script>
-
-  <!-- App (module for dynamic import in main.js) -->
   <script type="module" src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="home">
-  <!-- Navbar -->
   <header class="navbar">
     <nav class="container" aria-label="Main navigation">
-      <a class="brand" href="index.html" aria-current="page">Internet in Egypt</a>
-      <a href="index.html">Home</a>
+      <!-- brand removed on purpose -->
+      <a href="index.html" aria-current="page">Home</a>
       <a href="timeline.html">Timeline</a>
       <a href="growth.html">Growth</a>
       <a href="today.html">Today</a>
@@ -33,7 +25,6 @@
   </header>
 
   <main class="container">
-    <!-- Hero -->
     <section class="hero card" aria-labelledby="home-hero-title">
       <div>
         <h1 id="home-hero-title">The Internet in Egypt</h1>
@@ -47,13 +38,11 @@
       </div>
     </section>
 
-    <!-- Snapshots -->
     <section class="card" aria-labelledby="snap-title">
       <h2 id="snap-title" class="sr-only">Snapshot</h2>
       <div id="home-snapshots" class="snapshots-grid"></div>
     </section>
 
-    <!-- Milestones at a glance -->
     <section class="card" aria-labelledby="glance-title">
       <h2 id="glance-title">Milestones at a glance</h2>
       <div class="mini-timeline">
@@ -61,27 +50,24 @@
       </div>
     </section>
 
-    <!-- ISPs -->
     <section class="card" aria-labelledby="isps-title">
       <h2 id="isps-title">Internet Service Providers</h2>
       <div id="isp-grid" class="isp-grid"></div>
     </section>
 
-    <!-- Did you know -->
     <section class="card" aria-labelledby="facts-title">
       <h2 id="facts-title">Did you know?</h2>
       <div id="facts-grid" class="facts-grid"></div>
     </section>
   </main>
 
-  <!-- Decorative footer flag -->
   <footer class="flag" aria-label="Egypt flag stripes">
     <div class="stripe red"></div>
     <div class="stripe white"></div>
     <div class="stripe black"></div>
   </footer>
 
-  <!-- Validator (KEEP for marking) -->
+  <!-- Validator (KEEP) -->
   <script src="js/validate.js"></script>
   <script>
     if (location.search.includes('validate=1') && window.validator) {
