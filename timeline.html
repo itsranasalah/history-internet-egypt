@@ -5,40 +5,52 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Internet in Egypt — Timeline</title>
 
+  <!-- Favicon & fonts -->
   <link rel="icon" type="image/png" href="assets/img/egypt.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
+  <!-- Libraries -->
   <script defer src="js/libs/nunjucks.min.js"></script>
-  <script defer src="js/validate.js"></script>
-  <script type="module" defer src="js/main.js"></script>
+
+  <!-- App -->
+  <script type="module" src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="timeline">
   <header class="navbar">
     <nav class="container" aria-label="Main navigation">
+      <span class="brand" style="margin-left:24px">Internet in Egypt</span>
       <a href="index.html">Home</a>
       <a href="timeline.html" aria-current="page">Timeline</a>
       <a href="growth.html">Growth</a>
       <a href="today.html">Today</a>
       <div class="nav-ticker" aria-live="polite"></div>
-      <span class="nav-underline" aria-hidden="true"></span>
     </nav>
   </header>
 
   <main class="container">
     <h1>Timeline (2000–2025)</h1>
-   <section class="card" aria-labelledby="milestones-title">
+
+    <section class="card" aria-labelledby="milestones-title">
       <h2 id="milestones-title">Milestones</h2>
       <div id="tl-masonry" class="tl-grid"></div>
     </section>
   </main>
 
   <footer class="flag" aria-label="Egypt flag stripes">
-    <div class="stripe red"></div><div class="stripe white"></div><div class="stripe black"></div>
+    <div class="stripe red"></div>
+    <div class="stripe white"></div>
+    <div class="stripe black"></div>
   </footer>
 
+  <!-- Validator -->
+  <script src="js/validate.js"></script>
   <script>
-    if (location.search.includes('validate=1') && window.validator) { window.validator.runAll(); }
+    if (location.search.includes('validate=1') && window.validator) {
+      window.validator.runAll();
+    }
   </script>
 </body>
 </html>
