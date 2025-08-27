@@ -29,13 +29,14 @@ header.navbar{
   color:#fff; width:100%; position:sticky; top:0; z-index:1000;
   box-shadow:inset 0 -1px 0 rgba(201,162,39,.18);
 }
+/* same interior padding everywhere so the gap below is uniform */
 .navbar .container{
   display:flex; align-items:center; gap:28px; position:relative;
   overflow-x:auto; -webkit-overflow-scrolling:touch;
   padding-top:14px; padding-bottom:14px;
 }
 
-/* Brand removed everywhere */
+/* No brand/logo in the nav (removed in HTML too) */
 .navbar .brand{ display:none !important; }
 
 /* Tabs */
@@ -45,9 +46,9 @@ header.navbar{
 }
 .navbar a[aria-current="page"]{ color:#fff; }
 
-/* Underline (won’t block taps) */
+/* Underline */
 .nav-underline{
-  position:absolute; left:0; bottom:6px; height:3px; width:0;
+  position:absolute; left:24px; bottom:6px; height:3px; width:0;
   background:var(--accent-red); border-radius:2px; pointer-events:none;
   transform:translateX(0);
   transition:
@@ -224,9 +225,9 @@ body.theme-egypt .card{
 }
 
 /* ===================== 17) UNIFORM VERTICAL SPACING UNDER NAV ===================== */
-/* Same gap from black bar to first element on EVERY page */
+/* One identical gap from the bottom of the black bar to the first visible thing */
 main.container{
-  padding-top: var(--gap);   /* distance under navbar */
+  padding-top: var(--gap);
 }
 main.container > *{ margin-top: var(--gap); }
-main.container > :first-child{ margin-top: 0; }  /* avoid double space */
+main.container > :first-child{ margin-top: 0; }  /* prevent double spacing */
