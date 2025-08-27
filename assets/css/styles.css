@@ -179,6 +179,36 @@ body.theme-egypt .card{
 .mini-tl-title{ display:block; font-weight:800; margin-bottom:4px; }
 .mini-tl-text{ color:var(--muted); font-size:14px; }
 
+/* ==== HOME: Milestones-at-a-glance hard reset (even if a plain <ul> sneaks in) ==== */
+/* Remove bullets and left indent for any list that follows the #glance-title heading */
+section.card:has(#glance-title) ul {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
+}
+
+/* Layout as a horizontal card scroller if it's a direct list under the section */
+section.card:has(#glance-title) ul {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 2px;
+  contain: layout paint size style;
+}
+
+/* Make each LI look like a mini card */
+section.card:has(#glance-title) ul > li {
+  flex: 0 0 auto;
+  min-width: 220px;
+  max-width: 85vw;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
 /* ===================== 12) TIMELINE ===================== */
 .tl-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--gap); }
 @media (max-width:1200px){ .tl-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
@@ -243,3 +273,4 @@ body.theme-egypt .card{
 main.container{ padding-top:var(--gap); }     /* consistent gap under the black bar */
 main.container > *{ margin-top:var(--gap); }
 main.container > :first-child{ margin-top:0; }
+
