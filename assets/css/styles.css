@@ -269,4 +269,117 @@ body[data-page="today"] main.container > :first-child{ margin-top:0; }
 /* ===================== 15) OPTIONAL SUBHEAD BAR UNDER NAV ===================== */
 .subhead{ border-bottom:1px solid rgba(0,0,0,.06); }
 .subhead .container{ max-width:1200px; margin:0 auto; padding:8px 24px; }
+
 .subhead .kicker{ margin:0; font-size:14px; line-height:1.6; color:var(--muted); }
+
+/* =========================
+   MOBILE LAYOUT FIXES
+   ========================= */
+
+/* General: avoid tiny sideways scroll caused by 100vw + padding, iOS zoom, etc */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Container should never cause overflow; width is bounded by page padding */
+.container {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 1) Make the top navbar background truly full-width on phones */
+header.navbar {
+  background: #111; /* matches your dark nav theme */
+  width: 100%;
+}
+header.navbar .container {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .75rem 1rem;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto;                 /* if nav items overflow, allow horizontal scroll inside nav only */
+  -webkit-overflow-scrolling: touch;
+}
+header.navbar a,
+header.navbar .brand {
+  white-space: nowrap;              /* prevent ugly mid-word wraps */
+}
+
+/* 2) Ticker and any animated underline should not force overflow */
+.nav-ticker {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 3) Make grids stack on small screens so cards don’t squash */
+@media (max-width: 640px) {
+  .snapshots-grid,
+  .isp-grid,
+  .facts-grid,
+  .mini-tl {
+    display: grid;
+    grid-template-columns: 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .two-col {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+  }
+
+  .card {
+    margin: .75rem 0;
+    padding: 1rem;
+  }
+
+  .hero .lead {
+    font-size: 1rem;
+  }
+
+  h1, .page-title {
+    font-size: 1.5rem;
+    line-height: 1.2;
+    margin-top: .25rem;
+  }
+}
+
+/* 4) Chart canvases: ensure responsive scaling and no overflow */
+.chart-box,
+.chart-box.small,
+.chart-wrap {
+  width: 100%;
+  max-width: 100%;
+}
+canvas {
+  display: block;
+  max-width: 100%;
+  height: auto !important; /* let Chart.js scale down */
+}
+
+/* 5) Safety for any absolutely-positioned nav underline components */
+@media (max-width: 640px) {
+  .navbar .active-underline,
+  .nav-underline {
+    left: 0 !important;
+    right: 0 !important;
+    max-width: 100% !important;
+  }
+}
+
+/* 6) Utility: visually-hidden (for sr-only headings you've used) */
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0);
+  white-space: nowrap; border: 0;
+}
