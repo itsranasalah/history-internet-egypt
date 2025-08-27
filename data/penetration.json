@@ -1,0 +1,12 @@
+{
+"country": "Egypt",
+"metric": "Internet users (% of population)",
+"series": [
+  { "year": 2004, "value": 16 },
+  { "year": 2010, "value": 30 },
+  { "year": 2015, "value": 39 },
+  { "year": 2020, "value": 46 },
+  { "year": 2024, "value": 54 },
+  { "year": 2025, "value": 58 }
+]
+}

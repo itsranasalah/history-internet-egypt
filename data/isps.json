@@ -1,0 +1,6 @@
+[
+  { "name": "Vodafone", "logo": "assets/img/vodafone.png", "avg": "15 Mbps Average", "price": "360 EGP/month" },
+  { "name": "Orange",   "logo": "assets/img/orange.png",   "speed": "20 Mbps Average", "cost": "350 EGP/month" },
+  { "provider": "WE",   "icon": "assets/img/we.png",       "bandwidth": "10 Mbps Average", "monthly": "250 EGP/month" },
+  { "title": "Etisalat","logoUrl": "assets/img/etisalat.png","mbps": "25 Mbps Average", "price": "400 EGP/month" }
+]

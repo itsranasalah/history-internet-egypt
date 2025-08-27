@@ -1,0 +1,10 @@
+{# /templates/mini-timeline.njk #}
+<ul class="mini-tl">
+  {% for it in items %}
+  <li class="mini-tl-item">
+    <span class="pill">{{ it.year }}</span>
+    <strong class="mini-tl-title">{{ it.title }}</strong>
+    <p class="mini-tl-text">{{ it.text }}</p>
+  </li>
+  {% endfor %}
+</ul>

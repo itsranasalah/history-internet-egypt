@@ -1,0 +1,22 @@
+{
+"stats": [
+  { "label": "Penetration (2025)", "value": "58%", "caption": "share of population (demo)" },
+  { "label": "Households online", "value": "≈75%", "caption": "urban + rural (demo)" },
+  { "label": "Avg mobile speed", "value": "35 Mbps", "caption": "download (demo)" },
+  { "label": "Avg fixed speed", "value": "55 Mbps", "caption": "download (demo)" }
+],
+"types": [
+  { "name": "Mobile data", "share": 68 },
+  { "name": "Fixed broadband", "share": 29 },
+  { "name": "Public / other", "share": 3 }
+],
+"speeds": [
+  { "name": "Mobile", "mbps": 35 },
+  { "name": "Fixed", "mbps": 55 }
+],
+"facts": [
+  { "title": "Mobile-first nation", "text": "Most users first experienced the web on mobile, shaping app-centric habits." },
+  { "title": "Video drives traffic", "text": "Short video and streaming services dominate peak evening usage." },
+  { "title": "Payments go digital", "text": "Wallets and QR payments simplify top-ups, bills, and subscriptions." }
+]
+}

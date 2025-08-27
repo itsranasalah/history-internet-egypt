@@ -1,0 +1,53 @@
+[
+  { "year": 2000, "title": "Dial-up becomes common", "text": "Most access is via dial-up from ISPs such as TE Data; internet cafés popularize public access." },
+
+  { "year": 2001, "title": "Internet cafés & portals", "text": "Cafés spread in cities, local web portals and forums become daily destinations." },
+
+  { "year": 2002, "title": "Early broadband pilots", "text": "ADSL pilot projects start appearing for households and small businesses." },
+
+  { "year": 2003, "title": "Always-on connections", "text": "ADSL trials expand; ‘always-on’ access begins replacing per-minute dial-up for early adopters." },
+
+  { "year": 2004, "title": "Free Internet Initiative expands", "text": "Connections billed as local phone calls help millions experience the web at lower cost." },
+
+  { "year": 2005, "title": "E-learning & portals", "text": "Universities and training centers push e-learning websites; youth adoption rises." },
+
+  { "year": 2006, "title": "ADSL goes mainstream", "text": "Lower entry prices and bundled modems bring ADSL to far more homes." },
+
+  { "year": 2007, "title": "Social networks arrive", "text": "Early social media adoption grows; photo-sharing and messaging move online." },
+
+  { "year": 2008, "title": "ADSL expansion & speed bumps", "text": "Wider coverage and higher entry speeds accelerate the shift away from dial-up." },
+
+  { "year": 2009, "title": "USB modems & mobile data", "text": "Prepaid mobile broadband sticks offer flexible on-the-go access for laptops." },
+
+  { "year": 2010, "title": "3G era", "text": "Smartphones spread; mobile internet usage climbs with app stores and maps." },
+
+  { "year": 2011, "title": "Social media surges", "text": "News, organizing, and live video shift to social platforms during major events." },
+
+  { "year": 2012, "title": "E-commerce grows", "text": "Local marketplaces and online classifieds gain trust with cash-on-delivery." },
+
+  { "year": 2013, "title": "Government services go online", "text": "More public-service portals launch for payments, information, and forms." },
+
+  { "year": 2014, "title": "Backbone upgrades", "text": "National fiber backbone and international capacity projects improve latency and throughput." },
+
+  { "year": 2015, "title": "4G preparations", "text": "Spectrum refarming and trials prepare networks for LTE." },
+
+  { "year": 2016, "title": "LTE licensing & rollout prep", "text": "Operators secure spectrum; device ecosystem for LTE matures quickly." },
+
+  { "year": 2017, "title": "4G LTE launch", "text": "Nationwide LTE services arrive; typical mobile speeds jump and video streaming takes off." },
+
+  { "year": 2018, "title": "Fiber closer to homes", "text": "FTTx build-outs expand; higher-speed plans and converged bundles appear." },
+
+  { "year": 2019, "title": "Cashless push & apps", "text": "Mobile wallets and ride-hailing/delivery super-apps grow daily, driven by better networks." },
+
+  { "year": 2020, "title": "COVID-19 demand surge", "text": "Remote work, online classes, and video calls push record traffic; operators boost capacity." },
+
+  { "year": 2021, "title": "Speed improvements", "text": "Average fixed and mobile speeds rise; more neighborhoods get fiber and better Wi-Fi gear." },
+
+  { "year": 2022, "title": "Digital payments mainstream", "text": "E-payments, QR, and utility top-ups within super-apps become routine." },
+
+  { "year": 2023, "title": "Cloud & data centers", "text": "New data-center capacity and cloud on-ramps reduce latency for local users and businesses." },
+
+  { "year": 2024, "title": "FTTH coverage widens", "text": "More districts gain full-fiber options; base plans increase in speed and monthly caps." },
+
+  { "year": 2025, "title": "Most Egyptians online", "text": "A majority of the population uses the internet regularly; networks prepare for next-gen services." }
+]

@@ -1,0 +1,12 @@
+{
+"snapshots": [
+  { "label": "People online (2025)", "value": "≈58%", "caption": "share of population (demo)" },
+  { "label": "Households with internet", "value": "≈75%", "caption": "urban + rural (demo)" },
+  { "label": "Most-used access", "value": "Mobile", "caption": "mobile-first usage pattern" }
+],
+"facts": [
+  { "title": "Dial-up to fiber", "text": "In two decades, home access jumped from dial-up lines to fiber and 4G." },
+  { "title": "App habits", "text": "Many users’ first contact with the web was through mobile apps, not browsers." },
+  { "title": "Local hosting", "text": "Growing data-center capacity helps keep popular content closer to users." }
+]
+}

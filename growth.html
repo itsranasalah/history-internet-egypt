@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Internet in Egypt — Growth</title>
+
+  <!-- Favicon & fonts -->
+  <link rel="icon" type="image/png" href="assets/img/egypt.png">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <!-- Libraries -->
+  <script defer src="js/libs/nunjucks.min.js"></script>
+  <script defer src="js/libs/chart.umd.js"></script>
+
+  <!-- App -->
+  <script type="module" src="js/main.js"></script>
+</head>
+<body class="theme-egypt" data-page="growth">
+  <header class="navbar">
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="index.html">Internet in Egypt</a>
+      <a href="index.html">Home</a>
+      <a href="timeline.html">Timeline</a>
+      <a href="growth.html" aria-current="page">Growth</a>
+      <a href="today.html">Today</a>
+      <div class="nav-ticker" aria-live="polite"></div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Internet Users in Egypt (%)</h1>
+
+    <!-- KPI cards -->
+    <section class="card" aria-labelledby="kpi-title">
+      <h2 id="kpi-title">Key Growth Metrics</h2>
+      <div id="growth-stats" class="stats-grid" aria-live="polite"></div>
+    </section>
+
+    <!-- Users over time -->
+    <section class="card" aria-labelledby="users-title">
+      <h2 id="users-title">Users over time</h2>
+      <div class="chart-box">
+        <canvas id="usersChart" aria-label="Line chart of internet users over time"></canvas>
+      </div>
+    </section>
+
+    <!-- Two small charts (use div, or keep section + give it a heading) -->
+    <div class="two-col">
+      <article class="card" aria-labelledby="types-title">
+        <h2 id="types-title">How people connect</h2>
+        <div class="chart-box small">
+          <canvas id="typeChart" aria-label="Doughnut chart of access types"></canvas>
+        </div>
+      </article>
+
+      <article class="card" aria-labelledby="speed-title">
+        <h2 id="speed-title">Average download speeds</h2>
+        <div class="chart-box small">
+          <canvas id="speedChart" aria-label="Bar chart of average download speeds"></canvas>
+        </div>
+      </article>
+    </div>
+
+    <!-- Highlights / facts -->
+    <section class="card" aria-labelledby="facts-title">
+      <h2 id="facts-title">Highlights</h2>
+      <div id="growth-facts" class="facts-grid"></div>
+    </section>
+  </main>
+
+  <footer class="flag" aria-label="Egypt flag stripes">
+    <div class="stripe red"></div>
+    <div class="stripe white"></div>
+    <div class="stripe black"></div>
+  </footer>
+
+  <!-- Validator (KEEP for marking) -->
+  <script src="js/validate.js"></script>
+  <script>
+    if (location.search.includes('validate=1') && window.validator) {
+      window.validator.runAll();
+    }
+  </script>
+</body>
+</html>
