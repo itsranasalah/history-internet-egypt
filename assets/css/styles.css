@@ -24,26 +24,31 @@ img, svg, canvas, video{ max-width:100%; height:auto; display:block; }
 body{ overflow-wrap:anywhere; word-break:break-word; }
 
 /* ===================== 3) NAVBAR ===================== */
-header.navbar{ background:var(--bg); color:#fff; width:100%; }
+header.navbar{
+  background:linear-gradient(180deg,#0a0e13,#0b0f14 60%, #0b0f14);
+  color:#fff; width:100%; position:sticky; top:0; z-index:1000;
+  box-shadow:inset 0 -1px 0 rgba(201,162,39,.18);
+}
 .navbar .container{
   display:flex; align-items:center; gap:28px; position:relative;
   overflow-x:auto; -webkit-overflow-scrolling:touch;
+  padding-top:14px; padding-bottom:14px;
 }
 
-/* REMOVE brand text completely */
-.navbar .brand{ display:none; }
+/* Brand removed everywhere */
+.navbar .brand{ display:none !important; }
 
-/* Navigation tabs */
+/* Tabs */
 .navbar a{
-  color:#dfe3ea; text-decoration:none; padding:18px 12px; display:inline-block;
+  color:#dfe3ea; text-decoration:none; padding:10px 12px; display:inline-block;
   white-space:nowrap;
 }
 .navbar a[aria-current="page"]{ color:#fff; }
 
-/* Underline */
+/* Underline (won’t block taps) */
 .nav-underline{
-  position:absolute; left:0; bottom:8px; height:3px; width:0;
-  background:var(--accent-red); border-radius:2px;
+  position:absolute; left:0; bottom:6px; height:3px; width:0;
+  background:var(--accent-red); border-radius:2px; pointer-events:none;
   transform:translateX(0);
   transition:
     transform 320ms cubic-bezier(.25,.8,.25,1),
@@ -54,20 +59,16 @@ header.navbar{ background:var(--bg); color:#fff; width:100%; }
 
 .navbar a:focus{ outline:none; }
 .navbar a:focus-visible{ outline:3px solid var(--accent-gold); outline-offset:2px; }
-
 .nav-avatar{ margin-left:auto; }
 
 /* ===================== 4) HEADINGS / UTILITIES ===================== */
 h1{ font-size:44px; line-height:1.1; margin:28px 0 18px; font-weight:800; letter-spacing:-.5px; }
 h2{ font-size:24px; margin:0 0 8px; }
 h3{ font-size:18px; margin:0 0 10px; }
-
 .sr-only{
   position:absolute !important;
-  width:1px; height:1px;
-  padding:0; margin:-1px;
-  overflow:hidden; clip:rect(0 0 0 0);
-  white-space:nowrap; border:0;
+  width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; border:0;
 }
 
 /* ===================== 5) GENERIC CARD + GRID ===================== */
@@ -78,6 +79,25 @@ h3{ font-size:18px; margin:0 0 10px; }
 }
 .grid > .card, .grid > article.card, .grid > aside.card { align-self:start; }
 
+/* ===================== 6) ISP GRID / LOGOS ===================== */
+.isp-grid{ display:grid; gap:16px; grid-template-columns:repeat(2, minmax(0,1fr)); }
+.isp-card{
+  display:flex; gap:12px; background:#fff; border:1px solid var(--line);
+  border-radius:var(--radius-sm); padding:14px;
+}
+.isp-name{ margin:0 0 6px; font-weight:700; }
+.isp-speed,.isp-price{ margin:0; color:var(--muted); font-size:14px; }
+.isp-logo{
+  --logo-size:44px; position:relative; width:var(--logo-size); height:var(--logo-size);
+  border-radius:999px; background:#fff; border:1px solid var(--line);
+  display:grid; place-items:center; overflow:hidden;
+}
+.isp-logo img{ width:100%; height:100%; object-fit:contain; display:block; transform:scale(.92); }
+.isp-logo.logo-vodafone img{ transform:scale(.88); }
+.isp-logo.logo-orange   img{ transform:scale(.85); }
+.isp-logo.logo-we       img{ transform:scale(1.00) translateY(1px); }
+.isp-logo.logo-etisalat img{ transform:scale(.95)  translateY(1px); }
+
 /* ===================== 7) FOOTER FLAG ===================== */
 .flag .stripe{ height:10px; }
 .flag .stripe.red{   background:#e0312f; }
@@ -86,6 +106,13 @@ h3{ font-size:18px; margin:0 0 10px; }
 
 a:focus,button:focus,[tabindex]:focus{ outline:3px solid var(--accent-gold); outline-offset:2px; }
 .card:hover{ transform:translateY(-1px); box-shadow:0 10px 28px rgba(0,0,0,.14); }
+
+/* ===================== 8) CHARTS ===================== */
+.chart-box{ position:relative; width:100%; height:300px; }
+#usersChart{ width:100% !important; height:100% !important; display:block; }
+@media (max-width:960px){ .chart-box{ height:260px; } }
+.chart-wrap, .chart-box, .chart-box.small{ width:100%; max-width:100%; }
+canvas{ display:block; max-width:100%; height:auto !important; }
 
 /* ===================== 9) EGYPTIAN THEME ===================== */
 body.theme-egypt{
@@ -96,24 +123,110 @@ body.theme-egypt{
     #f7f1e3;
   font-family:"Cairo", Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
-body.theme-egypt header.navbar{
-  background:linear-gradient(180deg,#0a0e13,#0b0f14 60%, #0b0f14);
-  box-shadow:inset 0 -1px 0 rgba(201,162,39,.18);
-}
-body.theme-egypt .nav-underline{ background:var(--accent-red); }
 body.theme-egypt .card{
   border-color:var(--line);
   box-shadow:0 10px 28px rgba(0,0,0,.12), inset 0 0 0 2px rgba(201,162,39,.06);
 }
-body.theme-egypt footer.flag{ border-top:2px solid rgba(201,162,39,.35); }
 
-/* ===================== 17) UNIFORM SPACING UNDER NAVBAR ===================== */
-main.container {
-  padding-top: var(--gap); /* consistent vertical gap on ALL pages */
+/* ===================== 10) GROWTH PAGE ===================== */
+.two-col{
+  display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--gap);
+  margin-top:var(--gap);
 }
-main.container > * {
-  margin-top: var(--gap);
+.stats-grid{ display:grid; gap:16px; grid-template-columns:repeat(4, minmax(0,1fr)); }
+@media (max-width:960px){ .stats-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+.stat-card{ border:1px solid var(--line); border-radius:12px; padding:16px; background:#fff; display:flex; flex-direction:column; gap:4px; }
+.stat-value{ font-size:36px; line-height:1; font-weight:800; color:#101113; }
+.stat-label{ font-weight:700; color:#2b2e33; }
+.stat-caption{ margin:0; color:var(--muted); font-size:14px; }
+
+.facts-grid{ display:grid; gap:16px; grid-template-columns:repeat(3, minmax(0,1fr)); }
+@media (max-width:960px){ .facts-grid{ grid-template-columns:1fr; } }
+.fact-card{ display:flex; gap:12px; align-items:flex-start; border:1px solid var(--line); border-radius:12px; padding:14px; background:#fff; }
+.fact-dot{ width:10px; height:10px; border-radius:50%; background:var(--accent-red); margin-top:7px; }
+.fact-title{ margin:0 0 6px; font-size:16px; font-weight:800; }
+.fact-text{ margin:0; color:var(--muted); font-size:14px; }
+.chart-box.small{ height:260px; }
+@media (max-width:960px){ .two-col{ grid-template-columns:1fr; } .chart-box.small{ height:240px; } }
+
+/* ===================== 11) HOME PAGE ===================== */
+.hero{ display:flex; align-items:center; justify-content:space-between; gap:24px; padding:28px 28px 26px; }
+.hero .lead{ margin:8px 0 16px; color:#2a2d32; font-size:18px; }
+.cta-row{ display:flex; gap:12px; flex-wrap:wrap; }
+.cta{ display:inline-block; padding:10px 14px; border-radius:10px; background:var(--accent-red); color:#fff; text-decoration:none; font-weight:700; }
+.cta.ghost{ background:#fff; color:#101113; border:1px solid var(--line); }
+.snapshots-grid{ display:grid; gap:16px; grid-template-columns:repeat(3, minmax(0,1fr)); }
+@media (max-width:960px){ .snapshots-grid{ grid-template-columns:1fr; } }
+.snapshot-card{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; }
+.snapshot-value{ font-size:34px; line-height:1; font-weight:800; color:#101113; }
+.snapshot-label{ font-weight:700; color:#2b2e33; margin-top:6px; }
+.snapshot-caption{ margin:6px 0 0; color:var(--muted); font-size:14px; }
+
+/* ===================== 12) TIMELINE ===================== */
+.tl-grid{ display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--gap); }
+@media (max-width:1200px){ .tl-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+@media (max-width:760px){ .tl-grid{ grid-template-columns:1fr; } }
+.tl-grid .ms-card{
+  display:block; border:1px solid var(--line); background:#fff;
+  border-radius:12px; padding:14px; box-shadow:var(--shadow);
+  transition:transform .15s ease, box-shadow .15s ease;
 }
-main.container > :first-child {
-  margin-top: 0; /* no double stacking */
+.tl-grid .ms-card:hover{ transform:translateY(-2px); box-shadow:0 12px 30px rgba(0,0,0,.14); }
+.tl-grid .pill{
+  display:inline-block; font-weight:800; font-size:14px;
+  padding:.25rem .55rem; border:2px solid var(--accent-gold);
+  border-radius:999px; background:#fff7df; color:#533f05; margin-bottom:8px;
 }
+.tl-grid .ms-title{ margin:0 0 6px; font-weight:800; font-size:18px; }
+.tl-grid .ms-text{ margin:0; color:var(--muted); line-height:1.6; }
+
+/* ===================== 13) ARTICLE (Today) ===================== */
+.article{ padding:26px 26px 22px; }
+.article-head .dek{ margin:8px 0 0; color:#2a2d32; font-size:18px; }
+.at-a-glance{ margin:18px 0 22px; border:1px solid var(--line); background:#fff; border-radius:12px; padding:14px 16px; }
+.at-a-glance h3{ margin:0 0 8px; font-size:16px; font-weight:800; }
+.at-a-glance ul{ margin:0; padding-left:18px; }
+.article section{ margin-top:18px; }
+.article .bullets{ padding-left:18px; }
+.article .note{ color:var(--muted); }
+.sources .note{ color:var(--muted); margin:0 0 8px; }
+.sources-list{ margin:0; padding-left:18px; }
+.sources-list li + li{ margin-top:8px; }
+
+/* ===================== 14) NAVBAR TICKER ===================== */
+.navbar .nav-ticker{
+  order:2; margin-left:auto; flex:0 1 clamp(260px, 28vw, 400px);
+  min-height:24px; display:flex; align-items:center; justify-content:flex-end;
+  padding-right:8px; color:#aeb6c2; font-size:14px; line-height:1;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; opacity:.9;
+}
+.navbar .nav-avatar{ order:3; margin-left:10px; }
+.nav-ticker span{ display:inline-block; animation:tickerIn .45s ease both; }
+@keyframes tickerIn{ from{ transform:translateY(6px); opacity:0; } to{ transform:translateY(0); opacity:1; } }
+@media (max-width:900px){ .nav-ticker{ display:none; } }
+@media (max-width:1100px){ .navbar .container{ gap:20px; } }
+
+/* ===================== 15) SUBHEAD ===================== */
+.subhead{ border-bottom:1px solid rgba(0,0,0,.06); }
+.subhead .container{ max-width:1200px; margin:0 auto; padding:8px 24px; }
+.subhead .kicker{ margin:0; font-size:14px; line-height:1.6; color:var(--muted); }
+
+/* ===================== 16) EXTRA MOBILE SAFETY ===================== */
+@media (max-width:640px){
+  .snapshots-grid,.isp-grid,.facts-grid,.mini-tl{
+    display:grid; grid-template-columns:1fr !important; gap:.75rem !important;
+  }
+  .two-col{ display:grid !important; grid-template-columns:1fr !important; gap:1rem !important; }
+  .card{ margin:.75rem 0; padding:1rem; }
+  .hero .lead{ font-size:1rem; }
+  h1,.page-title{ font-size:1.5rem; line-height:1.2; margin-top:.25rem; }
+  .navbar .active-underline,.nav-underline{ left:0 !important; right:0 !important; max-width:100% !important; }
+}
+
+/* ===================== 17) UNIFORM VERTICAL SPACING UNDER NAV ===================== */
+/* Same gap from black bar to first element on EVERY page */
+main.container{
+  padding-top: var(--gap);   /* distance under navbar */
+}
+main.container > *{ margin-top: var(--gap); }
+main.container > :first-child{ margin-top: 0; }  /* avoid double space */
