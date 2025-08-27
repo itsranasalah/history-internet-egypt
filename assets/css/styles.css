@@ -297,3 +297,28 @@ body[data-page="today"] main.container > :first-child{ margin-top:0; }
   h1,.page-title{ font-size:1.5rem; line-height:1.2; margin-top:.25rem; }
   .navbar .active-underline,.nav-underline{ left:0 !important; right:0 !important; max-width:100% !important; }
 }
+
+/* ===================== 17) UNIFORM VERTICAL SPACING UNDER NAV ===================== */
+/* Make the vertical gap from the bottom of the navbar to the first content
+   identical across Home / Timeline / Growth / Today. Adjust values to taste. */
+
+/* Space directly under the navbar */
+main.container {
+  padding-top: 24px; /* controls the strip under the black nav bar */
+}
+
+/* Every direct child in <main> starts with the same offset */
+main.container > * {
+  margin-top: var(--gap);
+}
+
+/* The very first child also uses that same offset (override old per-page rules) */
+main.container > :first-child {
+  margin-top: var(--gap) !important;
+}
+
+/* But the heading/hero itself shouldn't add extra top margin */
+main.container > h1:first-child,
+.hero.card:first-child {
+  margin-top: 0 !important; /* spacing is provided by main's padding + first-child rule */
+}
