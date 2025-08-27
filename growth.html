@@ -5,18 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>The Internet in Egypt — Growth</title>
 
-  <!-- Favicon & fonts -->
   <link rel="icon" type="image/png" href="assets/img/egypt.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
-  <!-- Libraries -->
   <script defer src="js/libs/nunjucks.min.js"></script>
   <script defer src="js/libs/chart.umd.js"></script>
-
-  <!-- App -->
   <script type="module" src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="growth">
@@ -33,13 +27,11 @@
   <main class="container">
     <h1>Internet Users in Egypt (%)</h1>
 
-    <!-- KPI cards -->
     <section class="card" aria-labelledby="kpi-title">
       <h2 id="kpi-title">Key Growth Metrics</h2>
       <div id="growth-stats" class="stats-grid" aria-live="polite"></div>
     </section>
 
-    <!-- Users over time -->
     <section class="card" aria-labelledby="users-title">
       <h2 id="users-title">Users over time</h2>
       <div class="chart-box">
@@ -47,7 +39,6 @@
       </div>
     </section>
 
-    <!-- Two small charts -->
     <div class="two-col">
       <article class="card" aria-labelledby="types-title">
         <h2 id="types-title">How people connect</h2>
@@ -64,7 +55,6 @@
       </article>
     </div>
 
-    <!-- Highlights / facts -->
     <section class="card" aria-labelledby="facts-title">
       <h2 id="facts-title">Highlights</h2>
       <div id="growth-facts" class="facts-grid"></div>
@@ -77,7 +67,7 @@
     <div class="stripe black"></div>
   </footer>
 
-  <!-- Validator (KEEP for marking) -->
+  <!-- Validator (KEEP) -->
   <script src="js/validate.js"></script>
   <script>
     if (location.search.includes('validate=1') && window.validator) {
