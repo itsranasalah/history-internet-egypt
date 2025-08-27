@@ -20,18 +20,15 @@
   <script type="module" src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="growth">
-<header class="navbar">
-  <nav class="container" aria-label="Main navigation">
-    <span class="brand">Internet in Egypt</span>
-    <a href="index.html">Home</a>
-    <a href="timeline.html">Timeline</a>
-    <a href="growth.html" aria-current="page">Growth</a>
-    <a href="today.html">Today</a>
-    <div class="nav-ticker" aria-live="polite"></div>
-  </nav>
-</header>
-
-
+  <header class="navbar">
+    <nav class="container" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="timeline.html">Timeline</a>
+      <a href="growth.html" aria-current="page">Growth</a>
+      <a href="today.html">Today</a>
+      <div class="nav-ticker" aria-live="polite"></div>
+    </nav>
+  </header>
 
   <main class="container">
     <h1>Internet Users in Egypt (%)</h1>
@@ -46,23 +43,23 @@
     <section class="card" aria-labelledby="users-title">
       <h2 id="users-title">Users over time</h2>
       <div class="chart-box">
-        <canvas id="usersChart" aria-label="Line chart of internet users over time"></canvas>
+        <canvas id="usersChart" role="img" aria-labelledby="users-title"></canvas>
       </div>
     </section>
 
-    <!-- Two small charts (use div, or keep section + give it a heading) -->
+    <!-- Two small charts -->
     <div class="two-col">
       <article class="card" aria-labelledby="types-title">
         <h2 id="types-title">How people connect</h2>
         <div class="chart-box small">
-          <canvas id="typeChart" aria-label="Doughnut chart of access types"></canvas>
+          <canvas id="typeChart" role="img" aria-labelledby="types-title"></canvas>
         </div>
       </article>
 
       <article class="card" aria-labelledby="speed-title">
         <h2 id="speed-title">Average download speeds</h2>
         <div class="chart-box small">
-          <canvas id="speedChart" aria-label="Bar chart of average download speeds"></canvas>
+          <canvas id="speedChart" role="img" aria-labelledby="speed-title"></canvas>
         </div>
       </article>
     </div>
@@ -89,5 +86,3 @@
   </script>
 </body>
 </html>
-
-
