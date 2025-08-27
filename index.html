@@ -5,23 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Internet in Egypt — Home</title>
 
-  <!-- Favicon & fonts -->
   <link rel="icon" type="image/png" href="assets/img/egypt.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
-
-  <!-- Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
-  <!-- Libraries -->
   <script defer src="js/libs/nunjucks.min.js"></script>
-
-  <!-- App -->
-  <script type="module" src="js/main.js"></script>
+  <script type="module" defer src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="home">
   <header class="navbar">
     <nav class="container" aria-label="Main navigation">
-      <span class="brand" style="margin-left:24px">Internet in Egypt</span>
       <a href="index.html" aria-current="page">Home</a>
       <a href="timeline.html">Timeline</a>
       <a href="growth.html">Growth</a>
@@ -31,13 +24,10 @@
   </header>
 
   <main class="container">
-    <!-- Hero -->
     <section class="hero card" aria-labelledby="home-hero-title">
       <div>
         <h1 id="home-hero-title">The Internet in Egypt</h1>
-        <p class="lead">
-          A quick look at how Egyptians came online, how we connect today, and where access is heading.
-        </p>
+        <p class="lead">A quick look at how Egyptians came online, how we connect today, and where access is heading.</p>
         <div class="cta-row" aria-label="Quick links">
           <a class="cta" href="timeline.html">See full timeline</a>
           <a class="cta ghost" href="growth.html">View growth dashboard</a>
@@ -45,13 +35,11 @@
       </div>
     </section>
 
-    <!-- Snapshots -->
     <section class="card" aria-labelledby="snap-title">
       <h2 id="snap-title" class="sr-only">Snapshot</h2>
       <div id="home-snapshots" class="snapshots-grid"></div>
     </section>
 
-    <!-- Milestones at a glance -->
     <section class="card" aria-labelledby="glance-title">
       <h2 id="glance-title">Milestones at a glance</h2>
       <div class="mini-timeline">
@@ -59,13 +47,11 @@
       </div>
     </section>
 
-    <!-- ISPs -->
     <section class="card" aria-labelledby="isps-title">
       <h2 id="isps-title">Internet Service Providers</h2>
       <div id="isp-grid" class="isp-grid"></div>
     </section>
 
-    <!-- Did you know -->
     <section class="card" aria-labelledby="facts-title">
       <h2 id="facts-title">Did you know?</h2>
       <div id="facts-grid" class="facts-grid"></div>
@@ -78,7 +64,7 @@
     <div class="stripe black"></div>
   </footer>
 
-  <!-- Validator (KEEP for marking) -->
+  <!-- Validator -->
   <script src="js/validate.js"></script>
   <script>
     if (location.search.includes('validate=1') && window.validator) {
