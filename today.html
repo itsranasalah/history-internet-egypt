@@ -4,31 +4,32 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Internet in Egypt — Today</title>
-  <!-- Favicon -->
+
+  <!-- Favicon & fonts -->
   <link rel="icon" type="image/png" href="assets/img/egypt.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
+  <!-- Libraries -->
   <script defer src="js/libs/nunjucks.min.js"></script>
-  <script defer src="js/validate.js"></script>
-  <script defer src="js/main.js"></script>
+
+  <!-- App -->
+  <script type="module" src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="today">
   <header class="navbar">
-    <div class="container" role="navigation" aria-label="Main">
-      <!-- NEW: quick-facts ticker -->
-      <div class="nav-ticker" aria-live="polite"></div>
-
-      <!-- Nav links -->
+    <nav class="container" aria-label="Main navigation">
       <a href="index.html">Home</a>
       <a href="timeline.html">Timeline</a>
       <a href="growth.html">Growth</a>
       <a href="today.html" aria-current="page">Today</a>
-    </div>
+      <div class="nav-ticker" aria-live="polite"></div>
+    </nav>
   </header>
 
   <main class="container">
-    <!-- ARTICLE -->
     <article class="card article" aria-labelledby="today-title">
       <header class="article-head">
         <h1 id="today-title">Egypt’s Internet Today (2025)</h1>
@@ -49,7 +50,7 @@
       </aside>
 
       <section>
-        <h2>Access & adoption</h2>
+        <h2>Access &amp; adoption</h2>
         <p>
           Internet access keeps expanding across cities and many rural districts. While cafés and
           shared points once introduced millions to the web, most people now connect via their
@@ -100,7 +101,6 @@
       </footer>
     </article>
 
-    <!-- SOURCES -->
     <section class="card sources" aria-labelledby="sources-title">
       <h2 id="sources-title">Sources</h2>
       <p class="note">Update this list with the exact reports and years you used.</p>
@@ -119,7 +119,7 @@
         </li>
         <li>
           <a href="https://www.speedtest.net/global-index" target="_blank" rel="noopener">Ookla Global Index</a>
-          — comparative mobile & fixed speed measurements.
+          — comparative mobile &amp; fixed speed measurements.
         </li>
         <li>
           <a href="https://www.gsmaintelligence.com/" target="_blank" rel="noopener">GSMA Intelligence</a>
@@ -138,5 +138,13 @@
     <div class="stripe white"></div>
     <div class="stripe black"></div>
   </footer>
+
+  <!-- Validator -->
+  <script src="js/validate.js"></script>
+  <script>
+    if (location.search.includes('validate=1') && window.validator) {
+      window.validator.runAll();
+    }
+  </script>
 </body>
 </html>
