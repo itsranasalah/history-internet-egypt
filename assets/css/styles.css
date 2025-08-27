@@ -16,14 +16,25 @@ body{
   font:16px/1.75 Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
   min-height:100vh; display:flex; flex-direction:column;
 }
-.container{ max-width:1200px; margin:0 auto; padding:24px; }
+.container{ max-width:1200px; margin:0 auto; padding:24px; width:100%; }
 main.container{ flex:1 0 auto; }
 footer.flag{ flex:0 0 auto; margin-top:var(--gap); }
 
+/* Hard stop against horizontal expansion */
+html, body{
+  overflow-x:hidden;
+  -webkit-text-size-adjust:100%;
+}
+img, svg, canvas, video{ max-width:100%; height:auto; display:block; }
+body{ overflow-wrap:anywhere; word-break:break-word; }
+
 /* ===================== 3) NAVBAR ===================== */
-header.navbar{ background:var(--bg); color:#fff; }
-.navbar .container{ display:flex; align-items:center; gap:28px; position:relative; }
-.navbar a{ color:#dfe3ea; text-decoration:none; padding:18px 12px; display:inline-block; }
+header.navbar{ background:var(--bg); color:#fff; width:100%; }
+.navbar .container{
+  display:flex; align-items:center; gap:28px; position:relative;
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+}
+.navbar a{ color:#dfe3ea; text-decoration:none; padding:18px 12px; display:inline-block; white-space:nowrap; }
 .navbar a[aria-current="page"]{ color:#fff; }
 
 /* Sliding underline under hovered/active link */
@@ -49,7 +60,15 @@ header.navbar{ background:var(--bg); color:#fff; }
 h1{ font-size:44px; line-height:1.1; margin:28px 0 18px; font-weight:800; letter-spacing:-.5px; }
 h2{ font-size:24px; margin:0 0 8px; }
 h3{ font-size:18px; margin:0 0 10px; }
-.sr-only{ position:absolute; left:-9999px; } /* screen-reader-only helper */
+
+/* Standard visually-hidden helper */
+.sr-only{
+  position:absolute !important;
+  width:1px; height:1px;
+  padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0 0 0 0);
+  white-space:nowrap; border:0;
+}
 
 /* ===================== 5) GENERIC CARD + GRID ===================== */
 .grid{ display:grid; grid-template-columns:1.2fr 1fr; gap:var(--gap); }
@@ -60,7 +79,10 @@ h3{ font-size:18px; margin:0 0 10px; }
 .grid > .card, .grid > article.card, .grid > aside.card { align-self:start; }
 
 /* ===================== 6) ISP GRID / LOGOS ===================== */
-.isp-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:16px; }
+.isp-grid{
+  display:grid; gap:16px;
+  grid-template-columns:repeat(2, minmax(0,1fr)); /* min(0) prevents overflow */
+}
 .isp-card{
   display:flex; gap:12px; background:#fff; border:1px solid var(--line);
   border-radius:var(--radius-sm); padding:14px;
@@ -95,6 +117,10 @@ a:focus,button:focus,[tabindex]:focus{ outline:3px solid var(--accent-gold); out
 #usersChart{ width:100% !important; height:100% !important; display:block; }
 @media (max-width:960px){ .chart-box{ height:260px; } }
 
+/* Make charts responsive and never overflow */
+.chart-wrap, .chart-box, .chart-box.small{ width:100%; max-width:100%; }
+canvas{ display:block; max-width:100%; height:auto !important; }
+
 /* ===================== 9) EGYPTIAN THEME (always on) ===================== */
 body.theme-egypt{
   --accent-red:#ce1126; --accent-gold:#c9a227; --panel:#fffdf7; --line:#efe7cf;
@@ -122,19 +148,27 @@ body.theme-egypt footer.flag{ border-top:2px solid rgba(201,162,39,.35); }
 
 /* ===================== 10) GROWTH PAGE LAYOUT ===================== */
 .two-col{
-  display:grid; grid-template-columns:1fr 1fr; gap:var(--gap);
+  display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:var(--gap);
   margin-top:var(--gap);
 }
 /* KPI cards / facts */
-.stats-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
-@media (max-width:960px){ .stats-grid{ grid-template-columns:repeat(2,1fr); } }
+.stats-grid{
+  display:grid; gap:16px;
+  grid-template-columns:repeat(4, minmax(0,1fr));
+}
+@media (max-width:960px){ .stats-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
+
 .stat-card{ border:1px solid var(--line); border-radius:12px; padding:16px; background:#fff; display:flex; flex-direction:column; gap:4px; }
 .stat-value{ font-size:36px; line-height:1; font-weight:800; color:#101113; }
 .stat-label{ font-weight:700; color:#2b2e33; }
 .stat-caption{ margin:0; color:var(--muted); font-size:14px; }
 
-.facts-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+.facts-grid{
+  display:grid; gap:16px;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+}
 @media (max-width:960px){ .facts-grid{ grid-template-columns:1fr; } }
+
 .fact-card{ display:flex; gap:12px; align-items:flex-start; border:1px solid var(--line); border-radius:12px; padding:14px; background:#fff; }
 .fact-dot{ width:10px; height:10px; border-radius:50%; background:var(--accent-red); margin-top:7px; }
 .fact-title{ margin:0 0 6px; font-size:16px; font-weight:800; }
@@ -164,19 +198,30 @@ body[data-page="growth"] .two-col .card{ margin:0; }
 .cta{ display:inline-block; padding:10px 14px; border-radius:10px; background:var(--accent-red); color:#fff; text-decoration:none; font-weight:700; }
 .cta.ghost{ background:#fff; color:#101113; border:1px solid var(--line); }
 
-.snapshots-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+/* Snapshots use minmax(0,1fr) to avoid overflow on narrow screens */
+.snapshots-grid{
+  display:grid; gap:16px;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+}
 @media (max-width:960px){ .snapshots-grid{ grid-template-columns:1fr; } }
+
 .snapshot-card{ background:#fff; border:1px solid var(--line); border-radius:12px; padding:16px; }
 .snapshot-value{ font-size:34px; line-height:1; font-weight:800; color:#101113; }
 .snapshot-label{ font-weight:700; color:#2b2e33; margin-top:6px; }
 .snapshot-caption{ margin:6px 0 0; color:var(--muted); font-size:14px; }
 
-/* Horizontal mini-timeline scroller on Home */
-.mini-timeline{ overflow-x:auto; }
-.mini-tl{ display:flex; gap:16px; padding:4px 2px; margin:0; list-style:none; }
+/* Horizontal mini-timeline scroller on Home (contained) */
+.mini-timeline{ overflow:hidden; } /* container remains within viewport */
+.mini-tl{
+  display:flex; gap:16px; padding:4px 2px; margin:0; list-style:none;
+  overflow-x:auto; -webkit-overflow-scrolling:touch;
+  contain:layout paint size style; /* prevents parent expanding on iOS */
+}
 .mini-tl-item{
-  min-width:280px; max-width:320px; border:1px solid var(--line);
-  border-radius:12px; background:#fff; padding:12px;
+  flex:0 0 auto;
+  min-width:220px; max-width:85vw; /* never wider than viewport */
+  border:1px solid var(--line);
+  border-radius:12px; background:#fff; padding:12px; box-sizing:border-box;
 }
 .mini-tl-item .pill{
   display:inline-block; font-weight:800; font-size:14px;
@@ -186,6 +231,11 @@ body[data-page="growth"] .two-col .card{ margin:0; }
 .mini-tl-title{ display:block; font-weight:800; margin-bottom:4px; }
 .mini-tl-text{ color:var(--muted); font-size:14px; }
 
+/* ISPs on Home already defined above */
+@media (max-width:960px){
+  .isp-grid{ grid-template-columns:1fr; }
+}
+
 /* Consistent section spacing on Home */
 body[data-page="home"] main.container > .card,
 body[data-page="home"] main.container > .hero.card{ margin-top:var(--gap); }
@@ -193,9 +243,9 @@ body[data-page="home"] main.container > :first-child{ margin-top:0; }
 
 /* ===================== 12) TIMELINE GRID (ordered 3-up) ===================== */
 .tl-grid{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:var(--gap);
+  display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:var(--gap);
 }
-@media (max-width:1200px){ .tl-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:1200px){ .tl-grid{ grid-template-columns:repeat(2, minmax(0,1fr)); } }
 @media (max-width:760px){  .tl-grid{ grid-template-columns:1fr; } }
 
 .tl-grid .ms-card{
@@ -269,117 +319,14 @@ body[data-page="today"] main.container > :first-child{ margin-top:0; }
 /* ===================== 15) OPTIONAL SUBHEAD BAR UNDER NAV ===================== */
 .subhead{ border-bottom:1px solid rgba(0,0,0,.06); }
 .subhead .container{ max-width:1200px; margin:0 auto; padding:8px 24px; }
-
 .subhead .kicker{ margin:0; font-size:14px; line-height:1.6; color:var(--muted); }
 
-/* =========================
-   MOBILE LAYOUT FIXES
-   ========================= */
-
-/* General: avoid tiny sideways scroll caused by 100vw + padding, iOS zoom, etc */
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  -webkit-text-size-adjust: 100%;
-}
-
-/* Container should never cause overflow; width is bounded by page padding */
-.container {
-  width: 100%;
-  box-sizing: border-box;
-}
-
-/* 1) Make the top navbar background truly full-width on phones */
-header.navbar {
-  background: #111; /* matches your dark nav theme */
-  width: 100%;
-}
-header.navbar .container {
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-  padding: .75rem 1rem;
-  margin: 0 auto;
-  width: 100%;
-  box-sizing: border-box;
-  overflow-x: auto;                 /* if nav items overflow, allow horizontal scroll inside nav only */
-  -webkit-overflow-scrolling: touch;
-}
-header.navbar a,
-header.navbar .brand {
-  white-space: nowrap;              /* prevent ugly mid-word wraps */
-}
-
-/* 2) Ticker and any animated underline should not force overflow */
-.nav-ticker {
-  min-width: 0;
-  flex: 1 1 auto;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-/* 3) Make grids stack on small screens so cards don’t squash */
-@media (max-width: 640px) {
-  .snapshots-grid,
-  .isp-grid,
-  .facts-grid,
-  .mini-tl {
-    display: grid;
-    grid-template-columns: 1fr !important;
-    gap: 0.75rem !important;
+/* ===================== 16) EXTRA MOBILE SAFETY ===================== */
+@media (max-width:640px){
+  .navbar .active-underline, .nav-underline{
+    left:0 !important; right:0 !important; max-width:100% !important;
   }
-
-  .two-col {
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-  }
-
-  .card {
-    margin: .75rem 0;
-    padding: 1rem;
-  }
-
-  .hero .lead {
-    font-size: 1rem;
-  }
-
-  h1, .page-title {
-    font-size: 1.5rem;
-    line-height: 1.2;
-    margin-top: .25rem;
-  }
-}
-
-/* 4) Chart canvases: ensure responsive scaling and no overflow */
-.chart-box,
-.chart-box.small,
-.chart-wrap {
-  width: 100%;
-  max-width: 100%;
-}
-canvas {
-  display: block;
-  max-width: 100%;
-  height: auto !important; /* let Chart.js scale down */
-}
-
-/* 5) Safety for any absolutely-positioned nav underline components */
-@media (max-width: 640px) {
-  .navbar .active-underline,
-  .nav-underline {
-    left: 0 !important;
-    right: 0 !important;
-    max-width: 100% !important;
-  }
-}
-
-/* 6) Utility: visually-hidden (for sr-only headings you've used) */
-.sr-only {
-  position: absolute !important;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0 0 0 0);
-  white-space: nowrap; border: 0;
+  .card{ margin:.75rem 0; padding:1rem; }
+  .hero .lead{ font-size:1rem; }
+  h1, .page-title{ font-size:1.5rem; line-height:1.2; margin-top:.25rem; }
 }
