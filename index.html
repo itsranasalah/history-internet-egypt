@@ -12,19 +12,22 @@
   <!-- Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
-  <!-- App libs & code -->
+  <!-- Libraries -->
   <script defer src="js/libs/nunjucks.min.js"></script>
-  <script defer src="js/data.js"></script>
-  <script defer src="js/main.js"></script>
+
+  <!-- App (module for dynamic import in main.js) -->
+  <script type="module" src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="home">
+  <!-- Navbar -->
   <header class="navbar">
-    <nav class="container" aria-label="Main">
-      <div class="nav-ticker" aria-live="polite"></div>
-      <a href="index.html" aria-current="page">Home</a>
+    <nav class="container" aria-label="Main navigation">
+      <a class="brand" href="index.html" aria-current="page">Internet in Egypt</a>
+      <a href="index.html">Home</a>
       <a href="timeline.html">Timeline</a>
       <a href="growth.html">Growth</a>
       <a href="today.html">Today</a>
+      <div class="nav-ticker" aria-live="polite"></div>
     </nav>
   </header>
 
@@ -36,7 +39,7 @@
         <p class="lead">
           A quick look at how Egyptians came online, how we connect today, and where access is heading.
         </p>
-        <div class="cta-row">
+        <div class="cta-row" aria-label="Quick links">
           <a class="cta" href="timeline.html">See full timeline</a>
           <a class="cta ghost" href="growth.html">View growth dashboard</a>
         </div>
@@ -70,13 +73,14 @@
     </section>
   </main>
 
+  <!-- Decorative footer flag -->
   <footer class="flag" aria-label="Egypt flag stripes">
     <div class="stripe red"></div>
     <div class="stripe white"></div>
     <div class="stripe black"></div>
   </footer>
 
-  <!-- Lightweight data validator (load once, run via ?validate=1) -->
+  <!-- Validator (KEEP for marking) -->
   <script src="js/validate.js"></script>
   <script>
     if (location.search.includes('validate=1') && window.validator) {
