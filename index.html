@@ -5,10 +5,15 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Internet in Egypt — Home</title>
 
+  <!-- Favicon & fonts -->
   <link rel="icon" type="image/png" href="assets/img/egypt.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/styles.css">
 
+  <!-- Styles (NOTE: matches the actual filename) -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- If your file is named styles.css instead, use: assets/css/styles.css -->
+
+  <!-- App libs & code -->
   <script defer src="js/libs/nunjucks.min.js"></script>
   <script type="module" src="js/main.js"></script>
 </head>
@@ -38,11 +43,13 @@
       </div>
     </section>
 
+    <!-- Snapshot tiles -->
     <section class="card" aria-labelledby="snap-title">
       <h2 id="snap-title" class="sr-only">Snapshot</h2>
       <div id="home-snapshots" class="snapshots-grid"></div>
     </section>
 
+    <!-- Milestones scroller -->
     <section class="card" aria-labelledby="glance-title">
       <h2 id="glance-title">Milestones at a glance</h2>
       <div class="mini-timeline">
@@ -50,11 +57,13 @@
       </div>
     </section>
 
+    <!-- ISP grid -->
     <section class="card" aria-labelledby="isps-title">
       <h2 id="isps-title">Internet Service Providers</h2>
       <div id="isp-grid" class="isp-grid"></div>
     </section>
 
+    <!-- Facts -->
     <section class="card" aria-labelledby="facts-title">
       <h2 id="facts-title">Did you know?</h2>
       <div id="facts-grid" class="facts-grid"></div>
