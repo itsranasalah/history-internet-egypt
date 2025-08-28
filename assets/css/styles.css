@@ -59,6 +59,19 @@ header.navbar{
 .navbar a:focus-visible{ outline:3px solid var(--accent-gold); outline-offset:2px; }
 .nav-avatar{ margin-left:auto; }
 
+/* Sliding underline created dynamically by JS */
+.nav-underline{
+  position:absolute;
+  bottom:0;
+  height:3px;
+  background:var(--accent-red);
+  border-radius:2px;
+  width:0;
+  transform:translateX(0);
+  transition:transform .25s ease, width .25s ease;
+  pointer-events:none;
+}
+
 /* ===================== 4) HEADINGS / UTILITIES ===================== */
 h1{ font-size:44px; line-height:1.1; margin:28px 0 18px; font-weight:800; letter-spacing:-.5px; }
 h2{ font-size:24px; margin:0 0 8px; }
@@ -153,6 +166,41 @@ body.theme-egypt .card{
 .cta-row{ display:flex; gap:12px; flex-wrap:wrap; }
 .cta{ display:inline-block; padding:10px 14px; border-radius:10px; background:var(--accent-red); color:#fff; text-decoration:none; font-weight:700; }
 .cta.ghost{ background:#fff; color:#101113; border:1px solid var(--line); }
+
+/* HOME — Snapshot cards */
+.snapshots-grid{
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:16px;
+}
+@media (max-width:960px){
+  .snapshots-grid{ grid-template-columns:1fr; }
+}
+.snap-card{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  padding:16px;
+  box-shadow: var(--shadow);
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.snap-value{
+  font-size:36px;
+  line-height:1;
+  font-weight:800;
+  color:#101113;
+}
+.snap-label{
+  font-weight:700;
+  color:#2b2e33;
+}
+.snap-caption{
+  margin:0;
+  color:var(--muted);
+  font-size:14px;
+}
 
 /* MINI TIMELINE / MILESTONES — always as cards, no bullets */
 body[data-page="home"] #glance-title + ul,
