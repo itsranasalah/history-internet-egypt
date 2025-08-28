@@ -80,13 +80,12 @@ async function getHomeData(){
   return homeCache;
 }
 
-// Main renderer for the Home page.
-// - Sets the nav ticker
-// - Renders snapshot cards
-// - Renders the mini-timeline preview (first 6 items)
-// - Renders ISPs and "Did you know?" facts
-export async function renderHome(){
+/export async function renderHome(){
   setNavTicker().catch(()=>{});
+
+  // Remove any stray fallback list that some browsers/readers may inject
+  const badList = document.querySelector('#home-glance > h2#glance-title + ul');
+  if (badList) badList.remove();
 
   // snapshots
   try{
@@ -98,8 +97,32 @@ export async function renderHome(){
     const slot = document.querySelector('#home-snapshots');
     if (slot) slot.innerHTML = cards.join('');
   }catch(e){
-    await showError('#home-snapshots', e.message, 'Snapshot data');
+    await showError('#home-snapshots', e.message);
   }
+
+  // mini timeline preview
+  try{
+    const all = await getJSON('data/timeline.json');
+    ensureKeys(all, ['year','title','text'], 'timeline');
+    const items = all
+      .filter(m => Number(m.year) >= 2000 && Number(m.year) <= 2025)
+      .sort((a,b) => Number(a.year) - Number(b.year))
+      .slice(0, 6);
+    const html = await renderTpl('mini-timeline.njk', { items });
+    const slot = document.querySelector('#mini-tl');
+    if (slot) slot.innerHTML = html;
+  }catch(e){
+    await showError('section .mini-timeline', e.message, 'Timeline preview');
+  }
+
+  // ISPs + Facts
+  await renderISPsInto('#isp-grid').catch(async e=>{
+    await showError('#isp-grid', e.message, 'ISP data');
+  });
+  await renderFactsInto('#facts-grid').catch(async e=>{
+    await showError('#facts-grid', e.message, 'Facts');
+  });
+}
 
   // mini timeline preview
   try{
@@ -311,3 +334,4 @@ async function renderFactsInto(sel){
   const parts = await Promise.all(facts.map(f => renderTpl('fact.njk', f)));
   el.innerHTML = parts.join('');
 }
+
