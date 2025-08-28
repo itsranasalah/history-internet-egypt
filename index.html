@@ -5,24 +5,26 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>The Internet in Egypt — Home</title>
 
+  <!-- Favicon & fonts -->
   <link rel="icon" type="image/png" href="assets/img/egypt.png">
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="assets/css/styles.css">
 
-  <!-- Nunjucks (templates) -->
+  <!-- App libs & code -->
   <script defer src="js/libs/nunjucks.min.js"></script>
-  <!-- App entry -->
-  <script type="module" src="js/main.js"></script>
+  <script defer src="js/data.js"></script>
+  <script defer type="module" src="js/main.js"></script>
 </head>
 <body class="theme-egypt" data-page="home">
   <header class="navbar">
-    <nav class="container" aria-label="Main navigation">
-      <!-- brand intentionally removed -->
+    <nav class="container" aria-label="Main">
+      <div class="nav-ticker" aria-live="polite"></div>
       <a href="index.html" aria-current="page">Home</a>
       <a href="timeline.html">Timeline</a>
       <a href="growth.html">Growth</a>
       <a href="today.html">Today</a>
-      <div class="nav-ticker" aria-live="polite"></div>
     </nav>
   </header>
 
@@ -34,7 +36,7 @@
         <p class="lead">
           A quick look at how Egyptians came online, how we connect today, and where access is heading.
         </p>
-        <div class="cta-row" aria-label="Quick links">
+        <div class="cta-row">
           <a class="cta" href="timeline.html">See full timeline</a>
           <a class="cta ghost" href="growth.html">View growth dashboard</a>
         </div>
@@ -47,8 +49,8 @@
       <div id="home-snapshots" class="snapshots-grid"></div>
     </section>
 
-    <!-- Milestones at a glance (preview scroller) -->
-    <section class="card" aria-labelledby="glance-title">
+    <!-- Milestones at a glance (HOME PREVIEW) -->
+    <section class="card" id="home-glance" aria-labelledby="glance-title">
       <h2 id="glance-title">Milestones at a glance</h2>
       <div class="mini-timeline">
         <ul id="mini-tl" class="mini-tl"></ul>
@@ -74,7 +76,7 @@
     <div class="stripe black"></div>
   </footer>
 
-  <!-- Validator (KEEP) -->
+  <!-- Lightweight data validator (load once, run via ?validate=1) -->
   <script src="js/validate.js"></script>
   <script>
     if (location.search.includes('validate=1') && window.validator) {
