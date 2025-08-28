@@ -85,8 +85,10 @@ h3{ font-size:18px; margin:0 0 10px; }
 .flag .stripe.black{ background:#000; }
 
 /* ===================== 8) HOME HERO + MINI TIMELINE ===================== */
-.hero{ display:flex; align-items:center; justify-content:space-between;
-  gap:24px; padding:28px 28px 26px; }
+.hero{
+  display:flex; align-items:center; justify-content:space-between;
+  gap:24px; padding:28px 28px 26px;
+}
 .hero .lead{ margin:8px 0 16px; color:#2a2d32; font-size:18px; }
 
 .cta-row{ display:flex; gap:12px; flex-wrap:wrap; }
@@ -94,21 +96,48 @@ h3{ font-size:18px; margin:0 0 10px; }
   color:#fff; text-decoration:none; font-weight:700; }
 .cta.ghost{ background:#fff; color:#101113; border:1px solid var(--line); }
 
+/* Base container */
 .mini-timeline{ overflow:hidden; }
-.mini-tl{
-  list-style:none; padding-left:0; margin:0;
-  display:flex; gap:16px; padding:4px 2px;
-  overflow-x:auto; -webkit-overflow-scrolling:touch;
+
+/* Style the UL whether it is the outer one (.mini-tl)
+   OR a template accidentally inserted its own UL */
+.mini-timeline > .mini-tl,
+.mini-timeline ul{
+  list-style:none !important;
+  padding-left:0 !important;
+  margin:0;
+  display:flex;
+  gap:16px;
+  padding:4px 2px;
+  overflow-x:auto;
+  -webkit-overflow-scrolling:touch;
+  contain:layout paint size style;
 }
-.mini-tl > li{
-  flex:0 0 auto; min-width:220px; max-width:85vw;
-  border:1px solid var(--line); border-radius:12px; background:#fff;
-  padding:12px; box-sizing:border-box;
+
+/* Style items whether they are direct LIs of .mini-tl or any UL inside .mini-timeline */
+.mini-timeline > .mini-tl > li,
+.mini-timeline ul > li{
+  flex:0 0 auto;
+  min-width:220px;
+  max-width:85vw;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:#fff;
+  padding:12px;
+  box-sizing:border-box;
 }
-.mini-tl .pill{
-  display:inline-block; font-weight:800; font-size:14px;
-  padding:.25rem .55rem; border:2px solid var(--accent-gold);
-  border-radius:999px; background:#fff7df; color:#533f05; margin-bottom:6px;
+
+.mini-tl .pill,
+.mini-timeline ul .pill{
+  display:inline-block;
+  font-weight:800;
+  font-size:14px;
+  padding:.25rem .55rem;
+  border:2px solid var(--accent-gold);
+  border-radius:999px;
+  background:#fff7df;
+  color:#533f05;
+  margin-bottom:6px;
 }
 
 /* ===================== 9) TIMELINE PAGE ===================== */
@@ -128,7 +157,10 @@ h3{ font-size:18px; margin:0 0 10px; }
 
 /* ===================== 12) MOBILE SAFETY ===================== */
 @media (max-width:640px){
-  .mini-tl{ display:grid; grid-template-columns:1fr !important; gap:.75rem !important; }
+  .mini-timeline > .mini-tl,
+  .mini-timeline ul{
+    display:grid; grid-template-columns:1fr !important; gap:.75rem !important;
+  }
   .card{ margin:.75rem 0; padding:1rem; }
   h1{ font-size:1.5rem; }
 }
