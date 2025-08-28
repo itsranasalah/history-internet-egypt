@@ -1,27 +1,21 @@
 // -------- Nunjucks helper with fetch fallback --------
-// Renders a Nunjucks template by name with the given context object.
-// If the template isn't pre-registered, it fetches the file and renders from the source string.
 function renderTpl(name, ctx = {}) {
   return new Promise(async (resolve, reject) => {
     window.nunjucks.render(name, ctx, async (err, html) => {
-      if (!err && html != null) return resolve(html); // Primary path: template exists in Nunjucks environment.
+      if (!err && html != null) return resolve(html);
 
       try {
-        const res = await fetch(`templates/${name}`);  // Fallback: fetch template file by path.
+        const res = await fetch(`templates/${name}`);
         if (!res.ok) throw new Error(`Template fetch failed: ${name} (${res.status})`);
-        const src = await res.text();                  // Read template source.
-        resolve(window.nunjucks.renderString(src, ctx)); // Render from source string.
-      } catch (e) { reject(e); }                      // If both fail, surface the error to caller.
+        const src = await res.text();
+        resolve(window.nunjucks.renderString(src, ctx));
+      } catch (e) { reject(e); }
     });
   });
 }
 
 /* ===================== SHARED HELPERS ===================== */
 
-// Validate that each object in an array contains all required keys
-// - arr: array to validate
-// - keys: list of required property names
-// - where: string used in error messages to identify the data source
 function ensureKeys(arr, keys, where){
   if (!Array.isArray(arr)) throw new Error(`Invalid JSON in ${where}: expected an array`);
   const bad = arr.find(o => !keys.every(k => k in o));
@@ -31,8 +25,6 @@ function ensureKeys(arr, keys, where){
   }
 }
 
-// Render an error card into a selector (uses templates/error.njk)
-// If the error template is not available, it falls back to a simple inline card.
 async function showError(sel, message, title = 'Data error'){
   const host = document.querySelector(sel);
   if (!host) return;
@@ -45,74 +37,71 @@ async function showError(sel, message, title = 'Data error'){
   }
 }
 
-// Small helper for JSON
-// Uses fetch and throws a helpful error if the HTTP status is not OK.
 async function getJSON(path){
   const r = await fetch(path);
   if (!r.ok) throw new Error(`${path} (${r.status})`);
   return r.json();
 }
 
-/* ===================== NAV TICKER (quick fact in header) ===================== */
-// Populates the small "quick fact" text in the header with the latest penetration figure.
-// Falls back to a demo string if penetration.json isn't available.
+/* ===================== NAV TICKER ===================== */
 async function setNavTicker(){
   const el = document.querySelector('.nav-ticker');
   if (!el) return;
   try {
-    // Prefer penetration.json → last point
-    const pen = await getJSON('data/penetration.json');
+    // Files are at project root (not /data/)
+    const pen = await getJSON('penetration.json');
     ensureKeys(pen.series, ['year','value'], 'penetration.series');
-    const latest = pen.series[pen.series.length - 1]; // Pick the most recent year.
+    const latest = pen.series[pen.series.length - 1];
     el.textContent = `≈${latest.value}% of Egyptians are online (${latest.year}, demo)`;
   } catch {
-    // Fallback
     el.textContent = '≈58% of Egyptians are online (2025, demo)';
   }
 }
 
 /* ===================== HOME ===================== */
-// Simple cache so we only fetch home.json once per session.
 let homeCache = null;
 async function getHomeData(){
   if (homeCache) return homeCache;
-  homeCache = await getJSON('data/home.json').catch(()=>({})); // On failure, return empty object.
+  // Files at root
+  homeCache = await getJSON('home.json').catch(()=>({}));
   return homeCache;
 }
 
-// Main renderer for the Home page.
-// - Sets the nav ticker
-// - Renders snapshot cards
-// - Renders the mini-timeline preview (first 6 items)
-// - Renders ISPs and "Did you know?" facts
 export async function renderHome(){
-  setNavTicker().catch(()=>{}); // Non-blocking; page still loads if ticker fails.
+  setNavTicker().catch(()=>{});
 
   // snapshots
   try{
     const data = await getHomeData();
     const snaps = Array.isArray(data.snapshots) ? data.snapshots : [];
-    // value + label required; caption optional
     ensureKeys(snaps, ['value','label'], 'home.snapshots');
 
     const cards = await Promise.all(snaps.map(s => renderTpl('snapshot.njk', s)));
     const slot = document.querySelector('#home-snapshots');
-    if (slot) slot.innerHTML = cards.join(''); // Inject rendered snapshot cards.
+    if (slot) slot.innerHTML = cards.join('');
   }catch(e){
     await showError('#home-snapshots', e.message);
   }
 
-  // mini timeline preview
+  // mini timeline preview — inject <li> directly (no nested <ul>)
   try{
-    const all = await getJSON('data/timeline.json');
+    const all = await getJSON('timeline.json');    // root path
     ensureKeys(all, ['year','title','text'], 'timeline');
     const items = all
-      .filter(m => Number(m.year) >= 2000 && Number(m.year) <= 2025) // Only modern era section.
-      .sort((a,b) => Number(a.year) - Number(b.year))                 // Ascending order by year.
-      .slice(0, 6);                                                   // First 6 items only.
-    const html = await renderTpl('mini-timeline.njk', { items });     // Render preview list.
+      .filter(m => Number(m.year) >= 2000 && Number(m.year) <= 2025)
+      .sort((a,b) => Number(a.year) - Number(b.year))
+      .slice(0, 6);
+
+    const liHtml = items.map(m => `
+      <li>
+        <span class="pill">${m.year}</span>
+        <strong class="mini-tl-title">${m.title}</strong>
+        <span class="mini-tl-text">${m.text}</span>
+      </li>
+    `).join('');
+
     const slot = document.querySelector('#mini-tl');
-    if (slot) slot.innerHTML = html;
+    if (slot) slot.innerHTML = liHtml;
   }catch(e){
     await showError('section .mini-timeline', e.message, 'Timeline preview');
   }
@@ -127,30 +116,24 @@ export async function renderHome(){
 }
 
 /* ===================== GROWTH ===================== */
-// Main renderer for the Growth page.
-// - Sets the nav ticker
-// - Loads penetration and growth datasets
-// - Validates shapes
-// - Draws charts and renders fact/stat cards
 export async function renderGrowth(){
   setNavTicker().catch(()=>{});
 
   try{
-    const pen   = await getJSON('data/penetration.json');        // { series:[{year,value}] }
-    const extra = await getJSON('data/growth.json');             // { stats, types, speeds, facts }
+    const pen   = await getJSON('penetration.json'); // root
+    const extra = await getJSON('growth.json');      // root
 
-    // Validate shapes
     ensureKeys(pen.series, ['year','value'], 'penetration.series');
     if (Array.isArray(extra.stats))   ensureKeys(extra.stats,  ['value','label'], 'growth.stats');
     if (Array.isArray(extra.types))   ensureKeys(extra.types,  ['name','share'],  'growth.types');
     if (Array.isArray(extra.speeds))  ensureKeys(extra.speeds, ['name','mbps'],   'growth.speeds');
     if (Array.isArray(extra.facts))   ensureKeys(extra.facts,  ['title','text'],  'growth.facts');
 
-    renderStats(extra.stats||[]);     // KPI tiles
-    drawUsersTrend(pen.series||[]);   // Line chart
-    drawTypeDonut(extra.types||[]);   // Donut chart
-    drawSpeedBars(extra.speeds||[]);  // Bar chart
-    renderFacts(extra.facts||[]);     // "Highlights" list
+    renderStats(extra.stats||[]);
+    drawUsersTrend(pen.series||[]);
+    drawTypeDonut(extra.types||[]);
+    drawSpeedBars(extra.speeds||[]);
+    renderFacts(extra.facts||[]);
   }catch(e){
     const main = document.querySelector('main');
     if (main) {
@@ -160,7 +143,6 @@ export async function renderGrowth(){
   }
 }
 
-// Renders KPI stat tiles in the "Key Growth Metrics" section.
 function renderStats(stats=[]){
   const el = document.querySelector('#growth-stats');
   if(!el) return;
@@ -173,16 +155,14 @@ function renderStats(stats=[]){
   `).join('');
 }
 
-// Chart instances stored for cleanup/redraw.
 let usersChart,typeChart,speedChart;
 
-// Draws the "Users over time" line chart (Chart.js).
 function drawUsersTrend(series){
   const labels = series.map(p=>p.year);
   const values = series.map(p=>p.value);
   const ctx = document.getElementById('usersChart');
   if(!ctx || !window.Chart) return;
-  if(usersChart) usersChart.destroy(); // Reset if re-rendering.
+  if(usersChart) usersChart.destroy();
   usersChart = new Chart(ctx, {
     type:'line',
     data:{ labels, datasets:[{ data:values, fill:true }] },
@@ -195,7 +175,6 @@ function drawUsersTrend(series){
   });
 }
 
-// Draws the "How people connect" donut chart (Chart.js).
 function drawTypeDonut(types){
   const ctx = document.getElementById('typeChart');
   if(!ctx || !window.Chart) return;
@@ -213,7 +192,6 @@ function drawTypeDonut(types){
   });
 }
 
-// Draws the "Average download speeds" bar chart (Chart.js).
 function drawSpeedBars(speeds){
   const ctx = document.getElementById('speedChart');
   if(!ctx || !window.Chart) return;
@@ -232,7 +210,6 @@ function drawSpeedBars(speeds){
   });
 }
 
-// Renders the "Highlights" set of bullets on the Growth page.
 function renderFacts(facts=[]){
   const el = document.querySelector('#growth-facts');
   if(!el) return;
@@ -247,13 +224,7 @@ function renderFacts(facts=[]){
   `).join('');
 }
 
-/* ===================== TIMELINE — 3-per-row grid ===================== */
-// Main renderer for the Timeline page.
-// - Sets ticker
-// - Loads timeline.json
-// - Validates structure
-// - Filters to 2000–2025
-// - Renders cards in a responsive 3-column grid
+/* ===================== TIMELINE (3-up grid) ===================== */
 export async function renderTimeline(){
   setNavTicker().catch(()=>{});
 
@@ -261,7 +232,7 @@ export async function renderTimeline(){
   if(!wrap) return;
 
   try{
-    const all = await getJSON('data/timeline.json');
+    const all = await getJSON('timeline.json'); // root
     ensureKeys(all, ['year','title','text'], 'timeline');
 
     const items = all
@@ -281,24 +252,20 @@ export async function renderTimeline(){
 }
 
 /* ===================== TODAY ===================== */
-// Renderer for the Today page.
-// Currently Today is a static article + sources list; we only set the ticker.
 export async function renderToday(){
   setNavTicker().catch(()=>{});
-  // (Today is article + sources page now; nothing else to render by JS)
+  // Today page is static content; nothing else to render.
 }
 
-// Renders ISP cards into a given container selector.
-// Normalizes a few possible key names in case the JSON varies.
+/* ===================== ISPs & Facts helpers ===================== */
 async function renderISPsInto(sel){
   const el = document.querySelector(sel);
   if (!el) return;
 
   try{
-    const raw = await getJSON('data/isps.json');
+    const raw = await getJSON('isps.json'); // root
     if (!Array.isArray(raw) || raw.length === 0) throw new Error('Empty isps.json');
 
-    // Normalize different key names → { name, logo, avg, price }
     const normalized = raw.map(i => ({
       name:  i.name ?? i.provider ?? i.title ?? '',
       logo:  i.logo ?? i.logoUrl ?? i.icon ?? '',
@@ -306,7 +273,6 @@ async function renderISPsInto(sel){
       price: i.price?? i.cost     ?? i.monthly ?? ''
     }));
 
-    // Validate after normalization (logo optional)
     ensureKeys(normalized, ['name','avg','price'], 'isps (normalized)');
 
     const parts = await Promise.all(
@@ -319,8 +285,6 @@ async function renderISPsInto(sel){
   }
 }
 
-// Renders "Did you know?" facts on the Home page.
-// Uses cached home.json → facts[] and the fact.njk template.
 async function renderFactsInto(sel){
   const el = document.querySelector(sel);
   if (!el) return;
